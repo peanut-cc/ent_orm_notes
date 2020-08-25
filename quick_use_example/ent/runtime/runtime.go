@@ -2,9 +2,8 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/runtime.go
+// The schema-stitching logic is generated in github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/runtime.go
 
 const (
-	Version = "v0.4.0"                                          // Version of ent codegen.
-	Sum     = "h1:7k+LsvK5Sq4yx/NHqdEgAsOpVeVxChmo4peBljpp6OA=" // Sum of ent codegen.
+	Version = "v0.4.0" // Version of ent codegen.
 )

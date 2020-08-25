@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/facebook/ent/dialect/sql"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/car"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/user"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/car"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/user"
 )
 
 // Car is the model entity for the Car schema.

@@ -5,9 +5,9 @@ package enttest
 import (
 	"context"
 
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent"
 	// required by schema hooks.
-	_ "github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/runtime"
+	_ "github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/runtime"
 
 	"github.com/facebook/ent/dialect/sql/schema"
 )

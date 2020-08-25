@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent"
 )
 
 // The CarFunc type is an adapter to allow the use of ordinary

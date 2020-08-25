@@ -9,9 +9,9 @@ import (
 
 	"github.com/facebook/ent/dialect/sql/sqlgraph"
 	"github.com/facebook/ent/schema/field"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/car"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/group"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/user"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/car"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/group"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/user"
 )
 
 // UserCreate is the builder for creating a User entity.

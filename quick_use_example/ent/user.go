@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebook/ent/dialect/sql"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/user"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/user"
 )
 
 // User is the model entity for the User schema.

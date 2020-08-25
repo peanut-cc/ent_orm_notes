@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebook/ent/dialect/sql"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/group"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/group"
 )
 
 // Group is the model entity for the Group schema.

@@ -3,9 +3,9 @@
 package ent
 
 import (
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/group"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/schema"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/user"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/group"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/schema"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime

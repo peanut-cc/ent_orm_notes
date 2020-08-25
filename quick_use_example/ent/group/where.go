@@ -5,7 +5,7 @@ package group
 import (
 	"github.com/facebook/ent/dialect/sql"
 	"github.com/facebook/ent/dialect/sql/sqlgraph"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/predicate"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/predicate"
 )
 
 // ID filters vertices based on their identifier.

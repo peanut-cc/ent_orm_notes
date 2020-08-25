@@ -7,13 +7,13 @@ import (
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/car"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/user"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/car"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/user"
 )
 
 func main() {
-	client, err := ent.Open("mysql", "root:123456@tcp(192.168.1.104:3306)/ent_orm?parseTime=True")
+	client, err := ent.Open("mysql", "root:123456@tcp(10.211.55.3:3306)/ent_orm?parseTime=True")
 	if err != nil {
 		log.Fatal(err)
 	}

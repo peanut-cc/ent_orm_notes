@@ -12,7 +12,6 @@ type User struct {
 }
 
 // Fields of the User.
-// 用于给 user 表定义字段
 func (User) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("age").
@@ -22,7 +21,6 @@ func (User) Fields() []ent.Field {
 }
 
 // Edges of the User.
-// 和Cars表建立关系
 func (User) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("cars", Car.Type),

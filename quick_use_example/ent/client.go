@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/migrate"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/migrate"
 
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/car"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/group"
-	"github.com/peanut-pg/ent_orm_notes/quick_user_example/ent/user"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/car"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/group"
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/user"
 
 	"github.com/facebook/ent/dialect"
 	"github.com/facebook/ent/dialect/sql"
