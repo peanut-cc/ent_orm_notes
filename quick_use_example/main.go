@@ -6,6 +6,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/group"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent"
 	"github.com/peanut-cc/ent_orm_notes/quick_use_example/ent/car"
@@ -13,7 +15,7 @@ import (
 )
 
 func main() {
-	client, err := ent.Open("mysql", "root:123456@tcp(10.211.55.3:3306)/ent_orm?parseTime=True")
+	client, err := ent.Open("mysql", "root:123456@tcp(192.168.1.104:3306)/ent_orm?parseTime=True")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,6 +43,8 @@ func main() {
 	//}
 	//QueryCarUser(ctx, car)
 	//CreateGraph(ctx, client)
+	QueryGithub(ctx, client)
+	QueryGithub(ctx, client)
 
 }
 
@@ -231,5 +235,62 @@ func CreateGraph(ctx context.Context, client *ent.Client) error {
 		return err
 	}
 	log.Println("The graph was created successfully")
+	return nil
+}
+
+// QueryGithub 查询group = GitHub 的用户的所有的汽车
+func QueryGithub(ctx context.Context, client *ent.Client) error {
+	cars, err := client.Group.
+		Query().
+		Where(group.Name("GitHub")).
+		QueryUsers().
+		QueryCars().
+		All(ctx)
+	if err != nil {
+		return fmt.Errorf("failed getting cars:%v", err)
+	}
+	// cars returned: [Car(id=3, model=TeslaY, registered_at=Tue Aug 25 00:43:55 2020) Car(id=4, model=TeslaX, registered_at=Tue Aug 25 00:43:55 2020)]
+	log.Println("cars returned:", cars)
+	return nil
+}
+
+func QueryArielCars(ctx context.Context, client *ent.Client) error {
+	// Get "Ariel" from previous steps.
+	a8m := client.User.
+		Query().
+		Where(
+			user.HasCars(),
+			user.Name("Ariel"),
+		).
+		OnlyX(ctx)
+	cars, err := a8m. // Get the groups, that a8m is connected to:
+				QueryGroups(). // (Group(Name=GitHub), Group(Name=GitLab),)
+				QueryUsers().  // (User(Name=Ariel, Age=30), User(Name=Neta, Age=28),)
+				QueryCars().   //
+				Where(         //
+			car.Not( //  Get Neta and Ariel cars, but filter out
+				car.ModelEQ("TeslaX"), //  those who named "Mazda"
+			),
+		).
+		All(ctx)
+	if err != nil {
+		return fmt.Errorf("failed getting cars: %v", err)
+	}
+	log.Println("cars returned:", cars)
+	// Output: (Car(Model=Tesla, RegisteredAt=<Time>), Car(Model=Ford, RegisteredAt=<Time>),)
+	return nil
+}
+
+// QueryGroupWithUsers 查询所有由用户的组
+func QueryGroupWithUsers(ctx context.Context, client *ent.Client) error {
+	groups, err := client.Group.
+		Query().
+		Where(group.HasUsers()).
+		All(ctx)
+	if err != nil {
+		return fmt.Errorf("failed getting groups: %v", err)
+	}
+	log.Println("groups returned:", groups)
+	// Output: (Group(Name=GitHub), Group(Name=GitLab),)
 	return nil
 }
