@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	client, err := ent.Open("mysql", "root:123456@tcp(192.168.1.100:3306)/one_to_one?parseTime=True")
+	client, err := ent.Open("mysql", "root:123456@tcp(192.168.1.100:3306)/one_to_many?parseTime=True")
 	if err != nil {
 		log.Fatal(err)
 	}
