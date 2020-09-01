@@ -30,7 +30,8 @@ func main() {
 	//Gen2(ctx, client)
 	//Traverse(ctx, client)
 	//Traverse2(ctx, client)
-	edgerLoading(ctx, client)
+	//edgerLoading(ctx, client)
+	edgerLoading2(ctx, client)
 }
 
 func Gen(ctx context.Context, client *ent.Client) error {
@@ -133,6 +134,32 @@ func edgerLoading(ctx context.Context, client *ent.Client) {
 	for _, u := range users {
 		for _, p := range u.Edges.Pets {
 			log.Printf("user (%v) -- > Pet (%v)\n", u.Name, p.Name)
+		}
+	}
+
+}
+
+func edgerLoading2(ctx context.Context, client *ent.Client) {
+	users, err := client.User.
+		Query().
+		Where(
+			user.AgeGT(18),
+		).
+		WithPets().
+		WithGroups(func(q *ent.GroupQuery) {
+			q.Limit(5)
+			q.WithUsers().Limit(5)
+		}).All(ctx)
+	if err != nil {
+		log.Fatalf("user query failed:%v", err)
+	}
+	log.Println(users)
+	for _, u := range users {
+		for _, p := range u.Edges.Pets {
+			log.Printf("user (%v) --> Pet (%v)\n", u.Name, p.Name)
+		}
+		for _, g := range u.Edges.Groups {
+			log.Printf("user (%v) -- Group (%v)\n", u.Name, g.Name)
 		}
 	}
 
