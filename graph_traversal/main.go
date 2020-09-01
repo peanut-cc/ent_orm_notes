@@ -5,12 +5,18 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/peanut-cc/ent_orm_notes/graph_traversal/ent/pet"
+	"github.com/peanut-cc/ent_orm_notes/graph_traversal/ent/user"
+
+	"github.com/peanut-cc/ent_orm_notes/graph_traversal/ent/group"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/peanut-cc/ent_orm_notes/graph_traversal/ent"
 )
 
 func main() {
-	client, err := ent.Open("mysql", "root:123456@tcp(10.211.55.3:3306)/graph_traversal?parseTime=True")
+	client, err := ent.Open("mysql", "root:123456@tcp(10.211.55.3:3306)/graph_traversal?parseTime=True",
+		ent.Debug())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,7 +26,11 @@ func main() {
 	if err := client.Schema.Create(ctx); err != nil {
 		log.Fatalf("failed creating schema resources:%v", err)
 	}
-	Gen(ctx, client)
+	//Gen(ctx, client)
+	//Gen2(ctx, client)
+	//Traverse(ctx, client)
+	//Traverse2(ctx, client)
+	edgerLoading(ctx, client)
 }
 
 func Gen(ctx context.Context, client *ent.Client) error {
@@ -68,4 +78,62 @@ func Gen(ctx context.Context, client *ent.Client) error {
 	// Output:
 	// Pets created: Pet(id=1, name=Pedro) Pet(id=2, name=Xabi) Pet(id=3, name=Coco)
 	return nil
+}
+
+func Gen2(ctx context.Context, client *ent.Client) {
+	lab, err := client.Group.Create().SetName("Gitlab").Save(ctx)
+	if err != nil {
+		log.Fatalf("failed creating the group: %v", err)
+	}
+	client.User.Create().SetAge(18).SetName("peanut").AddGroups(lab).SaveX(ctx)
+}
+
+func Traverse(ctx context.Context, client *ent.Client) error {
+	owner, err := client.Group.
+		Query().
+		Where(group.Name("Github")).
+		QueryAdmin().
+		QueryFriends().
+		QueryPets().
+		QueryOwner().
+		Only(ctx)
+	if err != nil {
+		return fmt.Errorf("failed querying the owner: %v", err)
+	}
+	fmt.Println(owner)
+	return nil
+}
+
+func Traverse2(ctx context.Context, client *ent.Client) error {
+	pets, err := client.Pet.
+		Query().
+		Where(
+			pet.HasOwnerWith(
+				user.HasFriendsWith(
+					user.HasManage(),
+				),
+			),
+		).
+		All(ctx)
+	if err != nil {
+		return fmt.Errorf("failed querying the pets: %v", err)
+	}
+	fmt.Println(pets)
+	// Output:
+	// [Pet(id=1, name=Pedro) Pet(id=2, name=Xabi)]
+	return nil
+}
+
+func edgerLoading(ctx context.Context, client *ent.Client) {
+	users, err := client.User.Query().WithPets().All(ctx)
+	if err != nil {
+		log.Fatalf("user query failed:%v", err)
+	}
+	log.Println(users)
+	for _, u := range users {
+		for _, p := range u.Edges.Pets {
+			log.Printf("user (%v) -- > Pet (%v)\n", u.Name, p.Name)
+		}
+	}
+
 }
